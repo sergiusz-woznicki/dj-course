@@ -1,14 +1,14 @@
 import { GoogleGenAI } from "@google/genai";
 import * as dotenv from 'dotenv';
 
-dotenv.config();
+dotenv.config({ quiet: true });
 
 const API_KEY = process.env.GEMINI_API_KEY;
 
 const maskedKey = API_KEY 
     ? API_KEY.substring(0, 4) + '...' + API_KEY.substring(API_KEY.length - 4) 
     : 'NOT SET';
-console.log(`env var "GEMINI_API_KEY" is: ${maskedKey}`);
+// console.log(`env var "GEMINI_API_KEY" is: ${maskedKey}`);
 
 if (!API_KEY) {
     throw new Error("GEMINI_API_KEY environment variable is not set. Please set it to your Google Gemini API key.");
@@ -38,7 +38,7 @@ const conversationHistory = [
 
 async function run() {
     try {
-        console.log("\nSending query to Gemini...");
+        // console.log("\nSending query to Gemini...");
 
         const response = await ai.models.generateContent({
             model: model,
@@ -51,8 +51,12 @@ async function run() {
             },
         });
 
-        console.log("Gandalf's answer:");
+        // console.log("Gandalf's answer:");
         console.log(response.text);
+        console.log(`-> in (prompt_token_count):      ${response.usageMetadata.promptTokenCount}`);
+        console.log(`<- out (candidates_token_count): ${response.usageMetadata.candidatesTokenCount}`);
+        console.log(`== sum (total_token_count):      ${response.usageMetadata.totalTokenCount}`);
+        // console.log('full usageMetadata:', response.usageMetadata);
 
     } catch (error) {
         console.error("An error occurred:", error.message);

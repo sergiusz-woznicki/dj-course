@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # if set, print first 4 chars and last 4 chars and dots inside, else print NOT SET
-print(f"env var \"GEMINI_API_KEY\" is: { os.getenv('GEMINI_API_KEY', '')[:4] + '...' + os.getenv('GEMINI_API_KEY', '')[-4:] if len(os.getenv('GEMINI_API_KEY', '')) > 0 else 'NOT SET' }")
+# print(f"env var \"GEMINI_API_KEY\" is: { os.getenv('GEMINI_API_KEY', '')[:4] + '...' + os.getenv('GEMINI_API_KEY', '')[-4:] if len(os.getenv('GEMINI_API_KEY', '')) > 0 else 'NOT SET' }")
 if not os.getenv('GEMINI_API_KEY'):
     raise ValueError("GEMINI_API_KEY environment variable is not set. Please set it to your Google Gemini API key.")
 
@@ -32,13 +32,20 @@ conversation_history = [
     ),
 ]
 
-response = client.models.generate_content(
-    model=model,
-    contents=conversation_history,
-    config=types.GenerateContentConfig(
-        system_instruction=system_role,
-        thinking_config=types.ThinkingConfig(thinking_budget=0) # Disables thinking
-    ),
-)
+try:
+    response = client.models.generate_content(
+        model=model,
+        contents=conversation_history,
+        config=types.GenerateContentConfig(
+            system_instruction=system_role,
+            thinking_config=types.ThinkingConfig(thinking_budget=0) # Disables thinking
+        ),
+    )
+    print(response.text)
+    print(f"-> in (prompt_token_count):      {response.usage_metadata.prompt_token_count}")
+    print(f"<- out (candidates_token_count): {response.usage_metadata.candidates_token_count}")
+    print(f"== sum (total_token_count):      {response.usage_metadata.total_token_count}")
+    # print(f"full usage_metadata: {response.usage_metadata}")
 
-print(response.text)
+except Exception as e:
+    print(f"An error occurred: {str(e)}")
