@@ -11,8 +11,8 @@ if not os.getenv('ANTHROPIC_API_KEY'):
 
 
 client = AsyncClient(api_key=os.getenv('ANTHROPIC_API_KEY'))
-MODEL = 'claude-3-5-haiku-latest'
-# MODEL = 'claude-haiku-4-5'
+# MODEL = 'claude-3-5-haiku-latest'
+MODEL = 'claude-haiku-4-5'
 # MODEL = 'claude-opus-4-1'
 # MODEL = 'claude-sonnet-4-5'
 
