@@ -1,4 +1,9 @@
+node_modules/
+package.json
+
 mlruns/
+mlartifacts/
+mlflow.db
 .env
 output/*
 

@@ -1,0 +1,5 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  // see https://mlflow.org/docs/latest/genai/tracing/integrations/listing/opencode/#step-2-configure-opencode
+  "plugin": ["@mlflow/opencode"]
+}

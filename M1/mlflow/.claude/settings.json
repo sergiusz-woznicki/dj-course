@@ -3,16 +3,7 @@
     "MLFLOW_TRACKING_URI": "file:./mlruns",
     "MLFLOW_CLAUDE_TRACING_ENABLED": "true"
   },
-  "hooks": {
-    "Stop": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "python -c 'from mlflow.claude_code.hooks import stop_hook_handler; stop_hook_handler()'"
-          }
-        ]
-      }
-    ]
+  "env": {
+    "MLFLOW_TRACKING_URI": "file:./mlruns"
   }
 }
