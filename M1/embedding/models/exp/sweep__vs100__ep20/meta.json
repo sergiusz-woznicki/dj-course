@@ -1,0 +1,10 @@
+{
+  "tokenizer": "tokenizer-all-64k",
+  "corpus": "WOLNELEKTURY",
+  "vector_size": 100,
+  "window": 6,
+  "min_count": 2,
+  "epochs": 20,
+  "sample_rate": 0.01,
+  "train_time_s": 28.4
+}
