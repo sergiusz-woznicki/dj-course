@@ -1,0 +1,10 @@
+{
+  "servers": {
+    "docker-tools": {
+      "type": "stdio",
+      "command": "node",
+      "cwd": "${workspaceFolder}/M3/mcp-docker-tools",
+      "args": ["server.js"]
+    }
+  }
+}
