@@ -16,6 +16,7 @@ OUTPUT_NAMES = {
 parser = argparse.ArgumentParser()
 parser.add_argument("--corpus", required=True, choices=list(CORPORA_FILES.keys()), help="Korpus treningowy")
 parser.add_argument("--output", help="Ścieżka wyjściowa (opcjonalna)")
+parser.add_argument("--vocab-size", type=int, default=32000, help="Rozmiar słownika (default: 32000)")
 args = parser.parse_args()
 
 FILES = [str(f) for f in CORPORA_FILES[args.corpus]]
@@ -37,7 +38,7 @@ tokenizer.pre_tokenizer = Whitespace()
 # 3. Set the Trainer
 trainer = BpeTrainer(
     special_tokens=["[UNK]", "[CLS]", "[SEP]", "[PAD]", "[MASK]"],
-    vocab_size=32000,
+    vocab_size=args.vocab_size,
     min_frequency=2,
 )
 
