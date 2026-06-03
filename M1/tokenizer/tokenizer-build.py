@@ -1,13 +1,35 @@
+import argparse
+
+from corpora import CORPORA_FILES
 from tokenizers import Tokenizer
 from tokenizers.models import BPE
-from tokenizers.trainers import BpeTrainer
 from tokenizers.pre_tokenizers import Whitespace
-from corpora import get_corpus_file
+from tokenizers.trainers import BpeTrainer
 
-TOKENIZER_OUTPUT_FILE = "tokenizers/name_your_tokenizer.json"
+OUTPUT_NAMES = {
+    "PAN_TADEUSZ": "tokenizers/tokenizer-pan-tadeusz.json",
+    "WOLNELEKTURY": "tokenizers/tokenizer-wolnelektury.json",
+    "NKJP": "tokenizers/tokenizer-nkjp.json",
+    "ALL": "tokenizers/tokenizer-all-corpora.json",
+}
+
+parser = argparse.ArgumentParser()
+parser.add_argument("--corpus", required=True, choices=list(CORPORA_FILES.keys()), help="Korpus treningowy")
+parser.add_argument("--output", help="Ścieżka wyjściowa (opcjonalna)")
+args = parser.parse_args()
+
+FILES = [str(f) for f in CORPORA_FILES[args.corpus]]
+OUTPUT_FILE = args.output or OUTPUT_NAMES[args.corpus]
+
+
+print(f"Korpus: {args.corpus}")
+print(f"Liczba plików: {len(FILES)}")
+files_preview = str(FILES)
+print(f"Pliki: {files_preview[:100]}...")
+print(f"Output: {OUTPUT_FILE}")
 
 # 1. Initialize the Tokenizer (BPE model)
-tokenizer = Tokenizer(BPE(unk_token="[UNK]")) 
+tokenizer = Tokenizer(BPE(unk_token="[UNK]"))
 
 # 2. Set the pre-tokenizer (e.g., split on spaces)
 tokenizer.pre_tokenizer = Whitespace()
@@ -16,17 +38,14 @@ tokenizer.pre_tokenizer = Whitespace()
 trainer = BpeTrainer(
     special_tokens=["[UNK]", "[CLS]", "[SEP]", "[PAD]", "[MASK]"],
     vocab_size=32000,
-    min_frequency=2
+    min_frequency=2,
 )
-
-FILES = [str(f) for f in get_corpus_file("WOLNELEKTURY", "latarnik.txt")]
-print(FILES)
 
 # 4. Train the Tokenizer
 tokenizer.train(FILES, trainer=trainer)
 
 # 5. Save the vocabulary and tokenization rules
-tokenizer.save(TOKENIZER_OUTPUT_FILE)
+tokenizer.save(OUTPUT_FILE)
 
 for txt in [
     "Litwo! Ojczyzno moja! ty jesteś jak zdrowie.",
