@@ -1,0 +1,7 @@
+{
+  "model": "intfloat/multilingual-e5-small",
+  "corpus": "PAN_TADEUSZ",
+  "sentence_count": 10061,
+  "embedding_dim": 384,
+  "encode_time_s": 34.6
+}

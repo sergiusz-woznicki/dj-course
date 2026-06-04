@@ -1,0 +1,7 @@
+{
+  "model": "sdadas/st-polish-paraphrase-from-mpnet",
+  "corpus": "PAN_TADEUSZ",
+  "sentence_count": 10061,
+  "embedding_dim": 768,
+  "encode_time_s": 198.8
+}
