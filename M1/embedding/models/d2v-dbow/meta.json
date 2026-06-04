@@ -1,0 +1,11 @@
+{
+  "tokenizer": "bielik-v3-tokenizer",
+  "corpus": "WOLNELEKTURY",
+  "vector_size": 100,
+  "window": 8,
+  "min_count": 4,
+  "epochs": 20,
+  "dm": 0,
+  "train_time_s": 101.0,
+  "num_sentences": 90471
+}
