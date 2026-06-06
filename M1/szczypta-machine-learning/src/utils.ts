@@ -23,7 +23,7 @@ export const toJSONFile = (filepath: string, WK_Matrix: Matrix, WQ_Matrix: Matri
 
 export const fromJSONFile = (filepath: string) => {
   const json = fs.readFileSync(filepath, 'utf8');
-  console.log(`Loaded from ${filepath}`);
+//  console.log(`Loaded from ${filepath}`);
   const data = JSON.parse(json);
 
   const { WK_Matrix, WQ_Matrix, X_Input_Matrix } = data;
